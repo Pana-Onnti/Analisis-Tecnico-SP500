@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="apple-touch-icon" sizes="76x76" href="./static/img/apple-icon.png">
+<link rel="icon" type="image/png" href="./static/img/favicon.png">
+<title>
+  
+Analizador 
+</title>
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+<link href="{{ url_for('static', filename='css/nucleo-icons.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/nucleo-svg.css') }}" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/material-kit.css') }}">
+</head>
+<body class="index-page bg-gray-100">
+<div class="container position-sticky z-index-sticky top-0"><div class="row"><div class="col-12">
+  <nav class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+    <div class="container-fluid px-0">
+      <a class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip"  data-placement="bottom" target="_blank">
+       Pana Onnti
+      </a>
+   
+      <div class="row d-lg-none">
+        <div class="col-md-12">
+          <div class="d-flex mb-2">
+            <div class="icon h-10 me-3 d-flex mt-1">
+              <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+            </div>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <div>
+                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">Page Sections</h6>
+              </div>
+            </div>
+      </div>
+  </nav>
+</div></div></div>
+<header class="header-2">
+  <div class="page-header min-vh-75 relative" style="background-image: url('./static/img/pexels-nicklas-10462127.jpg')">
+    <span class="mask bg-gradient-primary opacity-4"></span>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <div class="header">
+            <form >
+            <select name="pattern">
+                {%for pattern in patterns%}
+        
+                 <option value="{{ pattern }}"  {% if pattern == current_pattern %}selected="selected"{%endif%}>{{patterns [pattern] }}</option>
+                
+                 {%endfor%}
+        
+             </select>
+        
+              <input type="submit" value="scan"/>
+            </form>
+        </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
+
+      <table class="tablatitulos">
+        <tr class="terremoto">
+            <th class="titulosymbol">
+                Symbol
+            </th>
+            <th class="titulocompany">
+                Company Name
+            </th>
+            <th class="titulosignal" >
+                Signal 
+            </th>
+        </tr>
+        {%for stock in stocks %}
+        {% if stocks[stock][current_pattern] %}
+        <tr>
+                <td class="nombrecompany">{{stock}}</td>
+                <td>{{ stocks[stock]['company'] }} </td>
+                <td class="{{stocks[stock][current_pattern]}}">{{stocks[stock][current_pattern]}}</td>
+        </tr>
+        <tr>
+          <div style="align-items:center">
+
+                <td class="amato"  >
+                    <img src="https://finviz.com/chart.ashx?t={{stock}}&ty=c&ta=1&p=d&s=l" style="margin: 1% 0% 2% 28%;">
+                </td>
+          <div>        
+        </tr>
+       
+        {%endif%}
+        {%endfor%}
+
+      </table>
+</div>
+</body>
+</html>
